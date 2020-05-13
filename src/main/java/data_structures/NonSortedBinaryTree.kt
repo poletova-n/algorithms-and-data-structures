@@ -27,11 +27,11 @@ class NonSortedBinaryTree<T : Comparable<T>>(
             return true
         } else {
             if (node.leftChild != null) {
-                searchInDeep(element, node.leftChild!!)
+                return searchInDeep(element, node.leftChild!!)
             }
 
             if (node.rightChild != null) {
-                searchInDeep(element, node.rightChild!!)
+                return searchInDeep(element, node.rightChild!!)
             }
         }
         return false
