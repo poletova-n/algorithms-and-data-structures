@@ -22,26 +22,27 @@ class NonSortedBinaryTree<T : Comparable<T>>(
     }
 
     //DFS: has modifications - pre-order(+) in-order and post-order
-    fun searchInDeep(element: T, node: BinaryTreeNode<T> = headNode): Boolean {
-        if (node.element == element) {
-            return true
-        } else {
-            if (node.leftChild != null) {
-                return searchInDeep(element, node.leftChild!!)
-            }
+    fun searchInDeep(element: T, node: BinaryTreeNode<T>? = headNode): Boolean {
 
-            if (node.rightChild != null) {
-                return searchInDeep(element, node.rightChild!!)
+        return when {
+            node == null -> {
+                false
+            }
+            node.element == element -> {
+                true
+            }
+            else -> {
+                searchInDeep(element, node.leftChild) ||
+                        searchInDeep(element, node.rightChild)
             }
         }
-        return false
     }
 
     // BFS
     fun searchInWight(element: T): Boolean {
         val queue = mutableListOf(headNode)
-        while (queue.isNotEmpty()){
-            if (queue[0].element == element){
+        while (queue.isNotEmpty()) {
+            if (queue[0].element == element) {
                 return true
             }
             if (queue[0].leftChild != null) {
