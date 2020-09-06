@@ -2,7 +2,7 @@ package data_structures
 
 import data_structures.nodes.BinaryTreeNode
 
-class InitiallySortedBinaryTree<T : Comparable<T>>(
+class BinaryTree<T : Comparable<T>>(
         headElement: T
 ) {
     private var headNode: BinaryTreeNode<T> = BinaryTreeNode(element = headElement, leftChild = null, rightChild = null, parentNode = null)
@@ -63,5 +63,41 @@ class InitiallySortedBinaryTree<T : Comparable<T>>(
                 }
             }
         }
+    }
+
+    //has modifications - pre-order(+) in-order and post-order
+    fun walkInDeep(element: T, node: BinaryTreeNode<T>? = headNode): Boolean {
+
+        return when {
+            node == null -> {
+                false
+            }
+            node.element == element -> {
+                true
+            }
+            else -> {
+                walkInDeep(element, node.leftChild) ||
+                        walkInDeep(element, node.rightChild)
+            }
+        }
+    }
+
+    // BFS
+    // TODO: replace java list with Queue class
+    fun searchInWight(element: T): Boolean {
+        val queue = mutableListOf(headNode)
+        while (queue.isNotEmpty()) {
+            if (queue[0].element == element) {
+                return true
+            }
+            if (queue[0].leftChild != null) {
+                queue.add(queue[0].leftChild!!)
+            }
+            if (queue[0].rightChild != null) {
+                queue.add(queue[0].rightChild!!)
+            }
+            queue.removeAt(0)
+        }
+        return false
     }
 }
